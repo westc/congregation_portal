@@ -35,3 +35,8 @@ def auth_and_login(request, onsuccess='/', onfail='/login/'):
 def index(request):
     context = {}
     return render(request, 'index.html', context)
+
+@login_required(login_url='/login/')
+def territory(request):
+    context = {}
+    return render(request, 'territory.html', context)
