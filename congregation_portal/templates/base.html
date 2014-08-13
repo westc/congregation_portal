@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" style="height:100%">
+  <head>
+    <meta charset="utf-8">
+    <title>Congregation Portal</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">    
+    
+    <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet">
+    
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">        
+    
+    <link href="{{ STATIC_URL }}css/ui-lightness/jquery-ui-1.10.0.custom.min.css" rel="stylesheet">
+    
+    <link href="{{ STATIC_URL }}css/base-admin-3.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/base-admin-3-responsive.css" rel="stylesheet">
+    
+    <link href="{{ STATIC_URL }}css/pages/dashboard.css" rel="stylesheet">   
+
+    <link href="{{ STATIC_URL }}css/custom.css" rel="stylesheet">
+
+	<script src="{{ STATIC_URL }}js/libs/jquery-1.9.1.min.js"></script>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+  </head>
+
+<body style="height:100%">
+
+<nav class="navbar navbar-inverse" role="navigation">
+
+	<div class="container">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <i class="icon-cog"></i>
+    </button>
+    <a class="navbar-brand" href="/">Congregation Portal</a>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav navbar-right">
+		<li class="dropdown">
+						
+			<a href="javscript:;" class="dropdown-toggle" data-toggle="dropdown">
+				<i class="icon-user"></i> 
+				{{ user.first_name }} {{ user.last_name }}
+				<b class="caret"></b>
+			</a>
+			
+			<ul class="dropdown-menu">
+				<li><a href="/admin" target="_blank">Admin Portal</a></li>
+				<li class="divider"></li>
+				<li><a href="/logout">Logout</a></li>
+			</ul>
+			
+		</li>
+    </ul>
+    
+    <form class="navbar-form navbar-right" role="search">
+      <div class="form-group">
+        <input type="text" class="form-control input-sm search-query" placeholder="Search">
+      </div>
+    </form>
+  </div><!-- /.navbar-collapse -->
+</div> <!-- /.container -->
+</nav>
+    
+
+
+
+    
+<div class="subnavbar">
+
+	<div class="subnavbar-inner">
+	
+		<div class="container">
+			
+			<a href="javascript:;" class="subnav-toggle" data-toggle="collapse" data-target=".subnav-collapse">
+		      <span class="sr-only">Toggle navigation</span>
+		      <i class="icon-reorder"></i>
+		      
+		    </a>
+
+			<div class="collapse subnav-collapse">
+				<ul class="mainnav">
+				
+					<li class="{% block nav-home %}{% endblock %}"><a href="/"><i class="icon-dashboard"></i><span>Home</span></a></li>
+					<li class="{% block nav-add %}{% endblock %}"><a href="/territory"><i class="icon-map-marker"></i><span>Territory Manager</span></a></li>
+			
+				</ul>
+			</div> <!-- /.subnav-collapse -->
+
+		</div> <!-- /container -->
+	
+	</div> <!-- /subnavbar-inner -->
+
+</div> <!-- /subnavbar -->
+    
+    
+<div class="main" style="min-height:100%;margin-bottom:-40px">
+
+    <div class="container">
+    {% if messages %}
+		{% for message in messages %}
+		<div{% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissable"{% endif %}>
+		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			{{ message }}
+		</div>
+		{% endfor %}
+	{% endif %}
+	{% block container %}{% endblock %}
+    </div> <!-- /container -->
+    
+</div> <!-- /main -->
+    
+<div class="footer">
+		
+	<div class="container">
+		
+		<div class="row">
+			
+			<div id="footer-copyright" class="col-md-6">
+				&copy; 2014 Venue Research Services
+			</div> <!-- /span6 -->
+			
+			<div id="footer-terms" class="col-md-6">
+			</div> <!-- /.span6 -->
+			
+		</div> <!-- /row -->
+		
+	</div> <!-- /container -->
+	
+</div> <!-- /footer -->
+
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{{ STATIC_URL }}js/libs/jquery-ui-1.10.0.custom.min.js"></script>
+<script src="{{ STATIC_URL }}js/libs/bootstrap.min.js"></script>
+
+<script src="{{ STATIC_URL }}js/plugins/flot/jquery.flot.js"></script>
+<script src="{{ STATIC_URL }}js/plugins/flot/jquery.flot.pie.js"></script>
+<script src="{{ STATIC_URL }}js/plugins/flot/jquery.flot.resize.js"></script>
+
+<script src="{{ STATIC_URL }}js/Application.js"></script>
+
+<script src="{{ STATIC_URL }}js/charts/area.js"></script>
+<script src="{{ STATIC_URL }}js/charts/donut.js"></script>
+
+  </body>
+</html>
