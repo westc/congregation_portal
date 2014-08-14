@@ -16,6 +16,7 @@ urlpatterns = patterns(
     url(r'^auth/$', views.auth_and_login),
     url(r'^$', views.index),
     url(r'^territory/$', views.territory),
+    url(r'^change-congregation/$', views.change_congregation),
 )
 
 if settings.DEBUG:

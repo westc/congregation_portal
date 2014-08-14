@@ -6,6 +6,9 @@ from django.contrib import messages
 
 import util
 
+from territory import models as territory_models
+from congregation_portal import models as shared_models
+
 
 def login_view(request):
     context = {}
@@ -25,6 +28,7 @@ def auth_and_login(request, onsuccess='/', onfail='/login/'):
     )
     if user is not None:
         login(request, user)
+        request.session['congregation'] = user.profile.congregation.number
         return redirect(onsuccess)
     else:
         messages.error(request, util.msgs['msg_login'])
@@ -33,10 +37,24 @@ def auth_and_login(request, onsuccess='/', onfail='/login/'):
 
 @login_required(login_url='/login/')
 def index(request):
-    context = {}
+    context = {'congregations': util.congregations}
     return render(request, 'index.html', context)
+
 
 @login_required(login_url='/login/')
 def territory(request):
-    context = {}
+    congregation = shared_models.Congregation.objects.get(pk=request.session.get('congregation'))
+    territories = territory_models.Territory.objects.filter(congregation=congregation)
+    context = {'territories': territories,
+               'congregations': util.congregations}
     return render(request, 'territory.html', context)
+
+
+@login_required(login_url='/login/')
+def change_congregation(request):
+    if request.user.profile.admin:
+        request.session['congregation'] = request.POST['congregation']
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        messages.error(request, util.msgs['msg_insufficient_privileges'])
+        return redirect(request.META.get('HTTP_REFERER'))

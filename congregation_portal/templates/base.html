@@ -51,8 +51,7 @@
 		<li class="dropdown">
 						
 			<a href="javscript:;" class="dropdown-toggle" data-toggle="dropdown">
-				<i class="icon-user"></i> 
-				{{ user.first_name }} {{ user.last_name }}
+				<i class="icon-user"></i> &nbsp; {{ user.first_name }} {{ user.last_name }}
 				<b class="caret"></b>
 			</a>
 			
@@ -64,12 +63,22 @@
 			
 		</li>
     </ul>
-    
-    <form class="navbar-form navbar-right" role="search">
-      <div class="form-group">
-        <input type="text" class="form-control input-sm search-query" placeholder="Search">
-      </div>
+
+    {% if request.user.profile.admin %}
+    <form class="navbar-form navbar-right" id="congregation_form" action="/change-congregation/" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="col-lg-8">
+                <select id="congregation" name="congregation" class="form-control input-sm search-query">
+                    <option value=""></option>
+                    {% for congregation in congregations %}
+                    <option value="{{ congregation.number }}" {% if congregation.number|stringformat:"i" == request.session.congregation %} selected="selected" {% endif %}>{{ congregation.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
     </form>
+  {% endif %}
   </div><!-- /.navbar-collapse -->
 </div> <!-- /.container -->
 </nav>
@@ -155,6 +164,13 @@
 
 <script src="{{ STATIC_URL }}js/charts/area.js"></script>
 <script src="{{ STATIC_URL }}js/charts/donut.js"></script>
+
+<script>
+    $('#congregation').change(
+    function(){
+         $('#congregation_form').trigger('submit');
+    });
+</script>
 
   </body>
 </html>
