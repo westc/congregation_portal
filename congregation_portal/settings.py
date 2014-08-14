@@ -32,6 +32,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_extensions',
     'congregation_portal',
+    'territory',
 )
 
 MIDDLEWARE_CLASSES = (
