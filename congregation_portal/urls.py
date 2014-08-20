@@ -6,7 +6,7 @@ admin.autodiscover()
 
 from congregation_portal import views
 from congregation_portal import settings
-
+from api import urls as api_urls
 
 urlpatterns = patterns(
     '',
@@ -15,8 +15,16 @@ urlpatterns = patterns(
     url(r'^logout/$', views.logout_view),
     url(r'^auth/$', views.auth_and_login),
     url(r'^$', views.index),
-    url(r'^territory/$', views.territory),
+
+    # api patterns
+    url(r'^api/', include(api_urls.router.urls)),
+
+    # util patterns
     url(r'^change-congregation/$', views.change_congregation),
+
+    # territory patterns
+    url(r'^territory/$', views.territory),
+    url(r'^territory/reports/$', views.territory_reports),
 )
 
 if settings.DEBUG:

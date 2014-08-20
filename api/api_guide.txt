@@ -1,0 +1,148 @@
+GET /api/territory => returns all territories for current congregation
+	Sample Response
+		[
+			{
+				"id": 1, 
+				"number": "1", 
+				"name": "Monmouth St.", 
+				"type": "H", 
+				"items": [
+					{
+						"id": 1, 
+						"territory": 1, 
+						"phone_number": "", 
+						"address1": "25 Monmouth St.", 
+						"address2": "", 
+						"city": "Red Bank", 
+						"state": "NJ", 
+						"notes": ""
+					}, 
+					{
+						"id": 2, 
+						"territory": 1, 
+						"phone_number": "", 
+						"address1": "30 Monmouth St.", 
+						"address2": "", 
+						"city": "Red Bank", 
+						"state": "NJ", 
+						"notes": "side door"
+					}
+				]
+			}, 
+			{
+				"id": 2, 
+				"number": "2", 
+				"name": "Bank St.", 
+				"type": "H", 
+				"items": [
+					{
+						"id": 4, 
+						"territory": 2, 
+						"phone_number": "", 
+						"address1": "10 Bank St.", 
+						"address2": "", 
+						"city": "Tinton Falls", 
+						"state": "NJ", 
+						"notes": ""
+					}
+				]
+			}
+		]
+
+
+POST /api/territory => returns all territories for current congregation
+	Sample Request
+		{
+			"number": "3", 
+			"name": "Main St.", 
+			"type": "H", 
+		}
+	
+	Sample Response
+		{
+			"id": 3, 
+			"number": "3", 
+			"name": "Main St.", 
+			"type": "H", 
+			"items": []
+		}
+
+GET /api/territory/1/ => return specific territory
+	Sample response
+		{
+			"id": 1, 
+			"number": "1", 
+			"name": "Monmouth St.", 
+			"type": "H", 
+			"items": [
+				{
+					"id": 1, 
+					"territory": 1, 
+					"phone_number": "", 
+					"address1": "25 Monmouth St.", 
+					"address2": "", 
+					"city": "Red Bank", 
+					"state": "NJ", 
+					"notes": ""
+				}, 
+				{
+					"id": 2, 
+					"territory": 1, 
+					"phone_number": "", 
+					"address1": "30 Monmouth St.", 
+					"address2": "", 
+					"city": "Red Bank", 
+					"state": "NJ", 
+					"notes": "side door"
+				}
+			]
+		}
+	Response will be blank if requesting a territory that doesn't exist or that exists for another congregation
+	
+GET /api/territory/1/item/ => return all items for specific territory
+	Sample response
+		[
+			{
+				"id": 1, 
+				"territory": 1, 
+				"phone_number": "", 
+				"address1": "25 Monmouth St.", 
+				"address2": "", 
+				"city": "Red Bank", 
+				"state": "NJ", 
+				"notes": ""
+			}, 
+			{
+				"id": 2, 
+				"territory": 1, 
+				"phone_number": "", 
+				"address1": "30 Monmouth St.", 
+				"address2": "", 
+				"city": "Red Bank", 
+				"state": "NJ", 
+				"notes": "side door"
+			}
+		]
+
+POST /api/territory/1/item/ => create new item for specific territory
+	Sample request
+		{
+			"phone_number": "", 
+			"address1": "25 Monmouth St.", 
+			"address2": "", 
+			"city": "Red Bank", 
+			"state": "NJ", 
+			"notes": ""
+		} 
+
+	Sample response
+		{
+			"id": 1, 
+			"territory": 1, 
+			"phone_number": "", 
+			"address1": "25 Monmouth St.", 
+			"address2": "", 
+			"city": "Red Bank", 
+			"state": "NJ", 
+			"notes": ""
+		}

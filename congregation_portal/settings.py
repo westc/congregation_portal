@@ -33,6 +33,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'congregation_portal',
     'territory',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -54,6 +55,19 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "django.core.context_processors.request"
 )
+
+REST_FRAMEWORK = {
+    # Use hyperlinked styles by default.
+    # Only used if the `serializer_class` attribute is not set on a view.
+    'DEFAULT_MODEL_SERIALIZER_CLASS':
+        'rest_framework.serializers.HyperlinkedModelSerializer',
+
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissions'
+    ]
+}
 
 ROOT_URLCONF = 'congregation_portal.urls'
 

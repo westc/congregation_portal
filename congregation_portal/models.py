@@ -18,3 +18,6 @@ class Profile(models.Model):
     user = models.OneToOneField(User)
     congregation = models.ForeignKey(Congregation)
     admin = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return "%s %s's Profile" % (self.user.first_name, self.user.last_name)
