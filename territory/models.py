@@ -38,6 +38,7 @@ class TerritoryItem(models.Model):
     city = models.CharField(max_length=100L)
     state = models.CharField(max_length=2L, choices=lists.states)
     notes = models.TextField(blank=True)
+    sort = models.PositiveIntegerField()
 
 
 class TerritoryTaggedItem(models.Model):
