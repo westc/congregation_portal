@@ -2,5 +2,7 @@
 *.pot
 *.pyc
 *.wsgi
+*.sublime-project
+*.sublime-workspace
 local_settings.py
 .idea/
