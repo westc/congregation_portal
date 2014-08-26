@@ -1,108 +1,114 @@
 <!DOCTYPE html>
 <html lang="en" style="height:100%">
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Congregation Portal</title>
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">    
-    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
     <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/bootstrap-responsive.min.css" rel="stylesheet">
-    
+
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
-    <link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">        
-    
+    <link href="{{ STATIC_URL }}css/font-awesome.min.css" rel="stylesheet">
+
     <link href="{{ STATIC_URL }}css/ui-lightness/jquery-ui-1.10.0.custom.min.css" rel="stylesheet">
-    
+
     <link href="{{ STATIC_URL }}css/base-admin-3.css" rel="stylesheet">
     <link href="{{ STATIC_URL }}css/base-admin-3-responsive.css" rel="stylesheet">
-    
-    <link href="{{ STATIC_URL }}css/pages/dashboard.css" rel="stylesheet">   
+
+    <link href="{{ STATIC_URL }}css/pages/dashboard.css" rel="stylesheet">
 
     <link href="{{ STATIC_URL }}css/custom.css" rel="stylesheet">
 
-	<script src="{{ STATIC_URL }}js/libs/jquery-1.9.1.min.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/jquery-1.9.1.min.js"></script>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-  </head>
+</head>
 
 <body style="height:100%">
 
 <nav class="navbar navbar-inverse" role="navigation">
 
-	<div class="container">
-  <!-- Brand and toggle get grouped for better mobile display -->
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-      <span class="sr-only">Toggle navigation</span>
-      <i class="icon-cog"></i>
-    </button>
-    <a class="navbar-brand" href="/">Congregation Portal</a>
-  </div>
-
-  <!-- Collect the nav links, forms, and other content for toggling -->
-  <div class="collapse navbar-collapse navbar-ex1-collapse">
-    <ul class="nav navbar-nav navbar-right">
-		<li class="dropdown">
-						
-			<a href="javscript:;" class="dropdown-toggle" data-toggle="dropdown">
-				<i class="icon-user"></i> &nbsp; {{ user.first_name }} {{ user.last_name }}
-				<b class="caret"></b>
-			</a>
-			
-			<ul class="dropdown-menu">
-				<li><a href="/admin" target="_blank">Admin Portal</a></li>
-				<li class="divider"></li>
-				<li><a href="/logout">Logout</a></li>
-			</ul>
-			
-		</li>
-    </ul>
-
-    {% if request.user.profile.admin %}
-    <form class="navbar-form navbar-right" id="congregation_form" action="/change-congregation/" method="POST">
-        {% csrf_token %}
-        <div class="form-group">
-            <div class="col-lg-8">
-                <select id="congregation" name="congregation" class="form-control input-sm search-query">
-                    <option value=""></option>
-                    {% for congregation in congregations %}
-                    <option value="{{ congregation.number }}" {% if congregation.number == request.session.congregation %} selected="selected" {% endif %}>{{ congregation.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <i class="icon-cog"></i>
+            </button>
+            <a class="navbar-brand" href="/">Congregation Portal</a>
         </div>
-    </form>
-  {% endif %}
-  </div><!-- /.navbar-collapse -->
-</div> <!-- /.container -->
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+
+                    <a href="javscript:;" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon-user"></i> &nbsp; {{ user.first_name }} {{ user.last_name }}
+                        <b class="caret"></b>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="/admin" target="_blank">Admin Portal</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/logout">Logout</a></li>
+                    </ul>
+
+                </li>
+            </ul>
+
+            {% if request.user.profile.admin %}
+                <form class="navbar-form navbar-right" id="congregation_form" action="/change-congregation/"
+                      method="POST">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <div class="col-lg-8">
+                            <select id="congregation" name="congregation" class="form-control input-sm search-query">
+                                <option value=""></option>
+                                {% for congregation in congregations %}
+                                    <option value="{{ congregation.number }}"
+                                            {% if congregation.number == request.session.congregation %}
+                                            selected="selected" {% endif %}>{{ congregation.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
 </nav>
 
-    
+
 <div class="subnavbar">
 
-	<div class="subnavbar-inner">
-	
-		<div class="container">
-			
-			<a href="javascript:;" class="subnav-toggle" data-toggle="collapse" data-target=".subnav-collapse">
-		      <span class="sr-only">Toggle navigation</span>
-		      <i class="icon-reorder"></i>
-		      
-		    </a>
+    <div class="subnavbar-inner">
 
-			<div class="collapse subnav-collapse">
-				<ul class="mainnav">
-				
-					<li class="{% block nav-home %}{% endblock %}"><a href="/"><i class="icon-dashboard"></i><span>Home</span></a></li>
-					<li class="dropdown {% block nav-territory %}{% endblock %}">
+        <div class="container">
+
+            <a href="javascript:;" class="subnav-toggle" data-toggle="collapse" data-target=".subnav-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <i class="icon-reorder"></i>
+
+            </a>
+
+            <div class="collapse subnav-collapse">
+                <ul class="mainnav">
+
+                    <li class="{% block nav-home %}{% endblock %}"><a href="/"><i
+                            class="icon-dashboard"></i><span>Home</span></a></li>
+                    <li class="dropdown {% block nav-territory %}{% endblock %}">
                         <a class="dropdown-toggle" data-toggle="dropdown">
-                          <i class="icon-map-marker"></i><span>Territory Manager</span><b class="caret"></b>
+                            <i class="icon-map-marker"></i><span>Territory Manager</span><b class="caret"></b>
                         </a>
 
                         <ul id="territory-dropdown" class="dropdown-menu">
@@ -110,51 +116,62 @@
                             <li><a href="/territory/reports">Reports</a></li>
                         </ul>
                     </li>
-			
-				</ul>
-			</div> <!-- /.subnav-collapse -->
 
-		</div> <!-- /container -->
-	
-	</div> <!-- /subnavbar-inner -->
+                </ul>
+            </div>
+            <!-- /.subnav-collapse -->
 
-</div> <!-- /subnavbar -->
-    
-    
+        </div>
+        <!-- /container -->
+
+    </div>
+    <!-- /subnavbar-inner -->
+
+</div>
+<!-- /subnavbar -->
+
+
 <div class="main" style="min-height:100%;margin-bottom:-40px">
 
     <div class="container">
-    {% if messages %}
-		{% for message in messages %}
-		<div{% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissable"{% endif %}>
-		  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			{{ message }}
-		</div>
-		{% endfor %}
-	{% endif %}
-	{% block container %}{% endblock %}
-    </div> <!-- /container -->
-    
-</div> <!-- /main -->
-    
+        {% if messages %}
+            {% for message in messages %}
+                <div{% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissable"{% endif %}>
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% block container %}{% endblock %}
+    </div>
+    <!-- /container -->
+
+</div>
+<!-- /main -->
+
 <div class="footer">
-		
-	<div class="container">
-		
-		<div class="row">
-			
-			<div id="footer-copyright" class="col-md-6">
-				&copy; 2014 Congregation Portal
-			</div> <!-- /span6 -->
-			
-			<div id="footer-terms" class="col-md-6">
-			</div> <!-- /.span6 -->
-			
-		</div> <!-- /row -->
-		
-	</div> <!-- /container -->
-	
-</div> <!-- /footer -->
+
+    <div class="container">
+
+        <div class="row">
+
+            <div id="footer-copyright" class="col-md-6">
+                &copy; 2014 Congregation Portal
+            </div>
+            <!-- /span6 -->
+
+            <div id="footer-terms" class="col-md-6">
+            </div>
+            <!-- /.span6 -->
+
+        </div>
+        <!-- /row -->
+
+    </div>
+    <!-- /container -->
+
+</div>
+<!-- /footer -->
 
 <!-- Le javascript
 ================================================== -->
@@ -174,16 +191,16 @@
 
 <script>
     $('#congregation').change(
-    function(){
-         $('#congregation_form').trigger('submit');
-    });
+            function () {
+                $('#congregation_form').trigger('submit');
+            });
 
     function csrfSafeMethod(method) {
         // these HTTP methods do not require CSRF protection
         return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     }
     $.ajaxSetup({
-        beforeSend: function(xhr, settings) {
+        beforeSend: function (xhr, settings) {
             if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
                 xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
             }
@@ -191,5 +208,5 @@
     });
 </script>
 
-  </body>
+</body>
 </html>

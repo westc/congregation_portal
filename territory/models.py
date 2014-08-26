@@ -17,7 +17,7 @@ class Territory(models.Model):
     congregation = models.ForeignKey(shared_models.Congregation)
 
     class Meta:
-        unique_together = ("number", "name", 'congregation')
+        unique_together = ("number", "name", 'congregation', 'type')
 
     def get_items(self):
         """

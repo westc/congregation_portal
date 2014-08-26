@@ -101,6 +101,7 @@
 
 .news-item-detail {
 	display: table-cell;
+    width: 100%;
 }
 
 .news-item-title {

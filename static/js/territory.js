@@ -22,17 +22,17 @@
         var new_terr_name = $('#new-terr-name').val();
         var new_terr_type = $('#new-terr-type').val();
 
-        if (!new_terr_num || !parseInt(new_terr_num)){
+        if (!new_terr_num || !parseInt(new_terr_num)) {
             alert("TODO: nicer error message. Number missing or not an int.");
             return;
         }
 
-        if (!new_terr_name){
+        if (!new_terr_name) {
             alert("TODO: nicer error message. Name missing.");
             return;
         }
 
-        if (!new_terr_type){
+        if (!new_terr_type) {
             alert("TODO: nicer error message. Type missing.");
             return;
         }
@@ -41,10 +41,21 @@
             type: "POST",
             url: "/api/territory/",
             data: {number: new_terr_num,
-                   name: new_terr_name,
-                   type: new_terr_type}
+                name: new_terr_name,
+                type: new_terr_type}
         }).success(function () {
             $("#newTerrModal").modal('hide');
+        }).error(function (response) {
+            alert(response);
         });
     });
+
+    // Load territory list
+    $.ajax({
+        type: "GET",
+        url: "/api/territory/"
+    }).success(function (response) {
+        console.log(response);
+    });
+
 })();
