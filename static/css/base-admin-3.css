@@ -45,6 +45,9 @@ textarea {
 [class^="icon-"] {
   background: none\9;
 }
+.dropdown a {
+  cursor: pointer;
+}
 .dropdown .dropdown-menu {
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
