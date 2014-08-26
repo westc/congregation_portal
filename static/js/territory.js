@@ -22,18 +22,19 @@
         var new_terr_name = $('#new-terr-name').val();
         var new_terr_type = $('#new-terr-type').val();
 
+        // TODO: Display friendlier errors using bootstrap theme error notifications.
         if (!new_terr_num || !parseInt(new_terr_num)) {
-            alert("TODO: nicer error message. Number missing or not an int.");
+            alert("Number missing or not an int.");
             return;
         }
 
         if (!new_terr_name) {
-            alert("TODO: nicer error message. Name missing.");
+            alert("Name missing.");
             return;
         }
 
         if (!new_terr_type) {
-            alert("TODO: nicer error message. Type missing.");
+            alert("Type missing.");
             return;
         }
 
@@ -55,6 +56,7 @@
         type: "GET",
         url: "/api/territory/"
     }).success(function (response) {
+        // TODO: Load territory UI list with this response somehow.
         console.log(response);
     });
 
