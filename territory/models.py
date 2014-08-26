@@ -16,6 +16,9 @@ class Territory(models.Model):
     type = models.CharField(max_length=1, choices=TERRITORY_TYPE)
     congregation = models.ForeignKey(shared_models.Congregation)
 
+    class Meta:
+        unique_together = ("number", "name", 'congregation')
+
     def get_items(self):
         """
         Return all territory items

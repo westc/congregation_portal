@@ -159,6 +159,7 @@
 <!-- Le javascript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+<script src="{{ STATIC_URL }}js/libs/jquery.cookie.js"></script>
 <script src="{{ STATIC_URL }}js/libs/jquery-ui-1.10.0.custom.min.js"></script>
 <script src="{{ STATIC_URL }}js/libs/bootstrap.min.js"></script>
 
@@ -175,6 +176,18 @@
     $('#congregation').change(
     function(){
          $('#congregation_form').trigger('submit');
+    });
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", $.cookie('csrftoken'));
+            }
+        }
     });
 </script>
 
