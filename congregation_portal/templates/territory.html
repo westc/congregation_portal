@@ -12,27 +12,7 @@
 				</div> <!-- /widget-header -->
 
 				<div class="widget-content">
-                    <ul class="news-items">
-                        <li>
-							<div class="news-item-detail">
-								<a href="javascript:;" class="news-item-title">#1 Monmouth St. (H)</a>
-							</div>
-
-							<div class="news-item-date">
-								<span class="news-item-day">45</span>
-								<span class="news-item-month">houses</span>
-							</div>
-						</li>
-                        <li>
-							<div class="news-item-detail">
-								<a href="javascript:;" class="news-item-title">#2 Bank St. (H)</a>
-							</div>
-
-							<div class="news-item-date">
-								<span class="news-item-day">30</span>
-								<span class="news-item-month">houses</span>
-							</div>
-						</li>
+                    <ul class="news-items" id="homeTerrList">
                     </ul>
 				</div> <!-- /widget-content -->
 
@@ -45,27 +25,7 @@
 				</div> <!-- /widget-header -->
 
 				<div class="widget-content">
-                    <ul class="news-items">
-                        <li>
-							<div class="news-item-detail">
-								<a href="javascript:;" class="news-item-title">#1 Monmouth St. (P)</a>
-							</div>
-
-							<div class="news-item-date">
-								<span class="news-item-day">45</span>
-								<span class="news-item-month">numbers</span>
-							</div>
-						</li>
-                        <li>
-							<div class="news-item-detail">
-								<a href="javascript:;" class="news-item-title">#2 Bank St. (P)</a>
-							</div>
-
-							<div class="news-item-date">
-								<span class="news-item-day">30</span>
-								<span class="news-item-month">numbers</span>
-							</div>
-						</li>
+                    <ul class="news-items" id="phoneTerrList">
                     </ul>
 				</div> <!-- /widget-content -->
 
@@ -104,12 +64,47 @@
             </div>
         </div>
 
+        <!-- Modal -->
+        <div class="modal fade" id="newTerrItemModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                                class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Add A Territory Item</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="new-terr-item-num" />
+                        <label for="new-terr-num">Phone</label>
+                        <input type="text" class="form-control" id="new-terr-item-phone"/>
+                        <label for="new-terr-num">Address 1</label>
+                        <input type="text" class="form-control" id="new-terr-item-addr1"/>
+                        <label for="new-terr-num">Address 2</label>
+                        <input type="text" class="form-control" id="new-terr-item-addr2"/>
+                        <label for="new-terr-num">City</label>
+                        <input type="text" class="form-control" id="new-terr-item-city"/>
+                        <label for="new-terr-num">State</label>
+                        <input type="text" class="form-control" id="new-terr-item-state"/>
+                        <label for="new-terr-num">Notes</label>
+                        <input type="text" class="form-control" id="new-terr-item-notes"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="new-terr-item-save">Add</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="widget stacked widget-table action-table">
 
             <div class="widget-header">
                 <i class="icon-globe"></i>
 
                 <h3>Territory #<span class="number">1</span> - <span class="name">Phoenixville</span></h3>
+
+                <a href="javascript:;" class="terr-button" id="btnAddHouse">Add House</a>
             </div>
             <!-- /widget-header -->
 

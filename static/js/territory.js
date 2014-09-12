@@ -41,23 +41,63 @@
         $.ajax({
             type: "POST",
             url: "/api/territory/",
-            data: {number: new_terr_num,
+            data: {
+                number: new_terr_num,
                 name: new_terr_name,
-                type: new_terr_type}
+                type: new_terr_type
+            }
         }).success(function () {
+            loadTerrList();
             $("#newTerrModal").modal('hide');
         }).error(function (response) {
             alert(response);
         });
     });
 
-    // Load territory list
-    $.ajax({
-        type: "GET",
-        url: "/api/territory/"
-    }).success(function (response) {
-        // TODO: Load territory UI list with this response somehow.
-        console.log(response);
-    });
+    $('#btnAddHouse').click(showNewTerrItemModal);
 
+    function showNewTerrItemModal() {
+        $("#newTerrItemModal").modal();
+    }
+
+    function addTerrToList(terr) {
+        var type = 
+        $('#' + (terr['type'] == 'H' ? 'home' : 'phone') + 'TerrList').append(
+            $('<li>').append(
+                $('<div class="news-item-detail">').append(
+                    $('<a href="javascript:;" class="news-item-title">')
+                        .text('#' + terr.number + ' - ' + terr.name)
+                )
+            ).append(
+                $('<div class="news-item-date">').append(
+                    $('<span class="news-item-day">')
+                        .text(terr.items.length)
+                ).append(
+                    $('<span class="news-item-month">')
+                        .text((terr['type'] == 'H' ? 'house' : 'number') + (terr.items.length - 1 ? 's' : ''))
+                )
+            )
+        );
+    }
+
+    // Load territory list
+    function loadTerrList() {
+        $.getJSON('/api/territory/', function(arr, status, xhr) {
+            $('#homeTerrList, #phoneTerrList').html("");
+            arr.forEach(addTerrToList);
+        });
+    }
+
+    loadTerrList();
+
+    // POST /api/territory/1/item/ => create new item for specific territory
+    // Sample request
+    //     {
+    //         "phone_number": "", 
+    //         "address1": "25 Monmouth St.", 
+    //         "address2": "", 
+    //         "city": "Red Bank", 
+    //         "state": "NJ", 
+    //         "notes": ""
+    //     } 
 })();
