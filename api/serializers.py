@@ -16,9 +16,7 @@ class TerritorySerializer(serializers.ModelSerializer):
         if obj is None:
             return None
 
-        items = obj.get_items()
-        serializer = TerritoryItemSerializer(items, many=True)
-        return serializer.data
+        return obj.get_item_count()
 
     class Meta:
         model = territory_models.Territory

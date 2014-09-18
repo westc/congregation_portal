@@ -71,7 +71,7 @@
             ).append(
                 $('<div class="news-item-date">').append(
                     $('<span class="news-item-day">')
-                        .text(terr.items.length)
+                        .text(terr.items)
                 ).append(
                     $('<span class="news-item-month">')
                         .text((terr['type'] == 'H' ? 'house' : 'number') + (terr.items.length - 1 ? 's' : ''))

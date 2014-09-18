@@ -7,6 +7,6 @@ from territory import views
 
 urlpatterns = patterns(
     '',
-    url(r'^$', views.territory_reports),
+    url(r'^$', views.territory),
     url(r'reports/$', views.territory_reports),
 )

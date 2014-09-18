@@ -18,12 +18,13 @@ class Territory(models.Model):
 
     class Meta:
         unique_together = ("number", "name", 'congregation', 'type')
+        verbose_name_plural = "territories"
 
-    def get_items(self):
+    def get_item_count(self):
         """
         Return all territory items
         """
-        return self.territoryitem_set.all()
+        return len(self.territoryitem_set.all())
 
     def __unicode__(self):
         return "%s (%s)" % (self.name, self.type)
@@ -42,6 +43,15 @@ class TerritoryItem(models.Model):
     state = models.CharField(max_length=2L, choices=lists.states)
     notes = models.TextField(blank=True)
     sort = models.PositiveIntegerField()
+
+    class Meta:
+        verbose_name_plural = "Territory Items"
+
+    def __unicode__(self):
+        if self.territory.type == "H":
+            return self.address1
+        else:
+            return self.phone_number
 
 
 class TerritoryTaggedItem(models.Model):

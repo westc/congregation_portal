@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 
 from territory import models as territory_models
@@ -20,17 +20,17 @@ class TerritoryViewSet(viewsets.ModelViewSet):
         queryset = territory_models.Territory.objects.filter(congregation=congregation)
 
         serializer = serializers.TerritorySerializer(queryset, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def retrieve(self, request, *args, **kwargs):
         congregation = request.session['congregation']
         pk = self.kwargs.get('pk', None)
 
-        queryset = territory_models.Territory.objects.filter(pk=pk,
-                                                             congregation=congregation)
+        queryset = territory_models.Territory.objects.get(pk=pk,
+                                                          congregation=congregation)
 
         serializer = serializers.TerritorySerializer(queryset)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def pre_save(self, obj):
         congregation = self.request.session['congregation']
@@ -48,8 +48,8 @@ class TerritoryItemViewSet(viewsets.ModelViewSet):
         queryset = territory_models.TerritoryItem.objects.filter(territory=territory_id,
                                                                  territory__congregation=congregation)
 
-        serializer = serializers.TerritorySerializer(queryset, many=True)
-        return Response(serializer.data)
+        serializer = serializers.TerritoryItemSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def retrieve(self, request, *args, **kwargs):
         congregation = request.session['congregation']
@@ -61,4 +61,4 @@ class TerritoryItemViewSet(viewsets.ModelViewSet):
                                                                  territory__congregation=congregation)
 
         serializer = serializers.TerritorySerializer(queryset)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
