@@ -22,9 +22,9 @@ urlpatterns = patterns(
     # util patterns
     url(r'^change-congregation/$', views.change_congregation),
 
-    # territory patterns
-    url(r'^territory/$', views.territory),
-    url(r'^territory/reports/$', views.territory_reports),
+    # territory app patterns
+    url(r'^territory/', include('territory.urls')),
+
 )
 
 if settings.DEBUG:
