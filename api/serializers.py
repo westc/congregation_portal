@@ -11,6 +11,7 @@ class CongregationSerializer(serializers.ModelSerializer):
 
 class TerritorySerializer(serializers.ModelSerializer):
     items = serializers.SerializerMethodField('get_items')
+    congregation = serializers.PrimaryKeyRelatedField()
 
     def get_items(self, obj):
         if obj is None:
@@ -20,8 +21,7 @@ class TerritorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = territory_models.Territory
-        fields = ('id', 'number', 'name', 'type', 'items')
-
+        fields = ('id', 'number', 'name', 'type', 'items', 'congregation')
 
 class TerritoryItemSerializer(serializers.ModelSerializer):
     class Meta:

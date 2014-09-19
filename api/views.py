@@ -1,3 +1,5 @@
+from django.utils.datastructures import MultiValueDict
+
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
@@ -32,9 +34,16 @@ class TerritoryViewSet(viewsets.ModelViewSet):
         serializer = serializers.TerritorySerializer(queryset)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def pre_save(self, obj):
-        congregation = self.request.session['congregation']
-        obj.congregation = shared_models.Congregation.objects.get(pk=congregation)
+    def create(self, request, *args, **kwargs):
+        data = MultiValueDict(request.DATA)
+        data['congregation'] = self.request.session['congregation']
+        serializer = serializers.TerritorySerializer(data=data)
+
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class TerritoryItemViewSet(viewsets.ModelViewSet):

@@ -17,7 +17,7 @@ class Territory(models.Model):
     congregation = models.ForeignKey(shared_models.Congregation)
 
     class Meta:
-        unique_together = ("number", "name", 'congregation', 'type')
+        unique_together = (("number", 'congregation', 'type'), )
         verbose_name_plural = "territories"
 
     def get_item_count(self):
